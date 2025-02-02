@@ -49,6 +49,8 @@ class CentralManagerView extends StatelessWidget {
           final uuid = discovery.peripheral.uuid;
           final name = discovery.advertisement.name;
           final rssi = discovery.rssi;
+          final addressType = discovery.addressType;
+          print("address type is: $addressType");
           return ListTile(
             onTap: () {
               onTapDissovery(context, discovery);

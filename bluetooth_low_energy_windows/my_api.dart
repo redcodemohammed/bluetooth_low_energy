@@ -31,6 +31,12 @@ enum MyAdvertisementTypeArgs {
   extended,
 }
 
+enum MyAddressTypeArgs {
+  public,
+  random,
+  unspecified,
+}
+
 enum MyConnectionStateArgs {
   disconnected,
   connected,
@@ -310,6 +316,7 @@ abstract class MyCentralManagerFlutterAPI {
     int timestampArgs,
     MyAdvertisementTypeArgs typeArgs,
     MyAdvertisementArgs advertisementArgs,
+    MyAddressTypeArgs addressTypeArgs,
   );
   void onConnectionStateChanged(
     MyPeripheralArgs peripheralArgs,

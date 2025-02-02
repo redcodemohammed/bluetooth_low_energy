@@ -237,6 +237,7 @@ namespace bluetooth_low_energy_windows
 				{
 					auto &api = m_api.value();
 					const auto address = event_args.BluetoothAddress();
+					const auto address_type = event_args.BluetoothAddressType();
 					const auto address_args = static_cast<int64_t>(address);
 					const auto peripheral_args = MyPeripheralArgs(address_args);
 					const auto rssi = event_args.RawSignalStrengthInDBm();
@@ -249,7 +250,7 @@ namespace bluetooth_low_energy_windows
 					const auto advertisement = event_args.Advertisement();
 					const auto advertisement_args = AdvertisementToArgs(advertisement);
 					// TODO: Make this thread safe when this issue closed: https://github.com/flutter/flutter/issues/134346.
-					api.OnDiscovered(peripheral_args, rssi_args, timestamp_args, type_args, advertisement_args, [] {}, [](auto error) {});
+					api.OnDiscovered(peripheral_args, rssi_args, timestamp_args, type_args, advertisement_args, [] {}, [](auto error) {}, address_type);
 				});
 			result(std::nullopt);
 		}

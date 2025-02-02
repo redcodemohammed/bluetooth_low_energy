@@ -268,15 +268,16 @@ final class MyCentralManager extends PlatformCentralManager
 
   @override
   void onDiscovered(
-    MyPeripheralArgs peripheralArgs,
-    int rssiArgs,
-    int timestampArgs,
-    MyAdvertisementTypeArgs typeArgs,
-    MyAdvertisementArgs advertisementArgs,
-  ) {
+      MyPeripheralArgs peripheralArgs,
+      int rssiArgs,
+      int timestampArgs,
+      MyAdvertisementTypeArgs typeArgs,
+      MyAdvertisementArgs advertisementArgs,
+      MyAddressTypeArgs addressTypeArgs) {
     final addressArgs = peripheralArgs.addressArgs;
     logger.info(
-        'onDiscovered: $addressArgs - $rssiArgs, $timestampArgs, $typeArgs, $advertisementArgs');
+      'onDiscovered: $addressArgs - $rssiArgs, $timestampArgs, $typeArgs, $advertisementArgs $addressTypeArgs',
+    );
     if (typeArgs == MyAdvertisementTypeArgs.connectableDirected ||
         typeArgs == MyAdvertisementTypeArgs.nonConnectableUndirected ||
         typeArgs == MyAdvertisementTypeArgs.extended) {
@@ -288,6 +289,7 @@ final class MyCentralManager extends PlatformCentralManager
         peripheral,
         rssi,
         advertisement,
+        addressTypeArgs,
       );
       _discoveredController.add(eventArgs);
     } else {
@@ -298,6 +300,7 @@ final class MyCentralManager extends PlatformCentralManager
         timestampArgs,
         typeArgs,
         advertisementArgs,
+        addressTypeArgs
       );
       // TODO: Should we ignore this?
       final ignored = oldDiscoveryArgs == null ||
@@ -342,6 +345,7 @@ final class MyCentralManager extends PlatformCentralManager
           peripheral,
           rssi,
           advertisement,
+          addressTypeArgs,
         );
         _discoveredController.add(eventArgs);
       }
@@ -547,6 +551,7 @@ final class MyDiscoveryArgs {
   final int timestampArgs;
   final MyAdvertisementTypeArgs typeArgs;
   final MyAdvertisementArgs advertisementArgs;
+  final MyAddressTypeArgs addressTypeArgs;
 
   MyDiscoveryArgs(
     this.peripheralArgs,
@@ -554,5 +559,6 @@ final class MyDiscoveryArgs {
     this.timestampArgs,
     this.typeArgs,
     this.advertisementArgs,
+    this.addressTypeArgs,
   );
 }
